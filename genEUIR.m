@@ -21,4 +21,8 @@ function [ rate ] = genEUIR( interval )
     if interval < 1
         rate=0.0198*interval ; 
     end
+    plottingpoints = datenum('01-Jul-2005'):1:datenum('01-Mar-2009') ; 
+    plot(plottingpoints, getParYields(NSModelEUR, plottingpoints), 'black') ; 
+    title('EUR Zero Yield Cruve Model For Maturity 1-5') ; 
+    datetick('x') ; 
 end

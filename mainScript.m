@@ -15,9 +15,8 @@ TCutoff = [ 13, 26, 39, 52, 104 ] ;
 % Model calibration: trained the optimal matrix
 trainedVolVector = fminsearch(@(x) optimizeVolMatrix(x, FXZ, FXInit,strikeVec,Tvec,implVolVec, TCutoff), initMatrix) ; 
 
-% First we need to extrapolate implied volatiltiy for the year 1 - 3
-% we will use the local volatility model for 0, 0.25, 0.5, 0.75, 1, 2, 3 points
+trainedVolVector(5) = trainedVolVector(4) ;
+trainedVolVector(6) = trainedVolVector(4) ;
 
-T = [ 0.25, 0.5, 1 ] ; 
-v = [ 0.1135, 0.112, 0.111 ] ; 
-extraVol = cspline(T, v) ; 
+% generate trained FX paths to use for risk management
+trainedFXPath = genFXPath( FXInit, FXZ, trainedVolVector, TCutoff ) ; 

@@ -4,7 +4,7 @@
 % Input: a datenum variable, 
 % Output: a 1*2 matrix with the interpolated USD and EUR risk free rates
 function [ rate ] = genUSIR( interval )
-    date = datestr(datenum('01-Mar_2004')+interval*360) ; 
+    date = datestr(datenum('01-Mar-2004')+interval*360) ; 
     Settle = repmat(datenum('01-Mar-2004'), [5,1]); 
     Maturity = [datenum('01-Mar-2005'); datenum('01-Mar-2006');
                 datenum('01-Mar-2007'); datenum('01-Mar=2008'); 
@@ -18,5 +18,10 @@ function [ rate ] = genUSIR( interval )
     InstrumentsUSD = [Settle Maturity CleanPriceUSD CouponRate] ; 
     NSModelUSD = IRFunctionCurve.fitNelsonSiegel('Zero',datenum('01-Mar-2004'),InstrumentsUSD) ; 
     rate = getParYields(NSModelUSD, date) ;
+    
+    plottingpoints = datenum('01-Mar-2005'):1:datenum('01-Mar-2009') ; 
+    plot(plottingpoints, getParYields(NSModelUSD, plottingpoints), 'black') ; 
+    title('USD Zero Yield Curve Model For Maturity 1-5') ; 
+    datetick('x')
 end
 

@@ -1,6 +1,6 @@
 function [ loss ] = optimizeVolMatrix( aVol, aZ, aInitVal, aStrikePriceVec, aTVec, aImplVolTargetVec, aTCutoff)
 % OPTIMIZEVOL function
-FXPath = genFXPath( aInitVal, aZ, aVol, aTCutoff) ; 
+FXPath = genFXCaliPath( aInitVal, aZ, aVol, aTCutoff) ; 
 implVolVec=zeros(size(aStrikePriceVec)) ; 
 
 for i=1:length(implVolVec)
